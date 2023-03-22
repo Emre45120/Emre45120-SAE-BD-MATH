@@ -1,42 +1,36 @@
-DROP TABLE IF EXISTS ITINERAIRES;
-DROP TABLE IF EXISTS VOLS;
-DROP TABLE IF EXISTS TERMINAUX;
-DROP TABLE IF EXISTS AEROPORTS;
-DROP TABLE IF EXISTS VILLES;
-
-CREATE TABLE VOLS (
-  id_vol INT PRIMARY KEY,
-  compagnie VARCHAR(255),
-  numero VARCHAR(255),
-  date_depart DATETIME
+CREATE TABLE VILLES (
+  id_ville NUMBER PRIMARY KEY,
+  nom_ville VARCHAR2(255),
+  pays VARCHAR2(255)
 );
 
 CREATE TABLE AEROPORTS (
-  id_aeroport INT PRIMARY KEY,
-  nom_aeroport VARCHAR(255) UNIQUE
-);
-
-CREATE TABLE VILLES (
-  id_ville INT PRIMARY KEY,
-  nom_ville VARCHAR(255),
-  pays VARCHAR(255)
+  id_aeroport NUMBER PRIMARY KEY,
+  nom_aeroport VARCHAR2(255) UNIQUE
 );
 
 CREATE TABLE TERMINAUX (
-  id_terminal INT PRIMARY KEY,
-  nom_terminal VARCHAR(255),
-  id_aeroport INT,
+  id_terminal NUMBER PRIMARY KEY,
+  nom_terminal VARCHAR2(255),
+  id_aeroport NUMBER,
   FOREIGN KEY (id_aeroport) REFERENCES AEROPORTS(id_aeroport)
 );
 
+CREATE TABLE VOLS (
+  id_vol NUMBER PRIMARY KEY,
+  compagnie VARCHAR2(255),
+  numero VARCHAR2(255),
+  date_depart TIMESTAMP
+);
+
 CREATE TABLE ITINERAIRES (
-  id_itineraire INT PRIMARY KEY,
-  id_vol INT,
-  id_aeroport_depart INT,
-  id_aeroport_arrivee INT,
-  id_terminal_depart INT,
-  id_terminal_arrivee INT,
-  date_arrivee_prevue DATETIME,
+  id_itineraire NUMBER PRIMARY KEY,
+  id_vol NUMBER,
+  id_aeroport_depart NUMBER,
+  id_aeroport_arrivee NUMBER,
+  id_terminal_depart NUMBER,
+  id_terminal_arrivee NUMBER,
+  date_arrivee_prevue TIMESTAMP,
   FOREIGN KEY (id_vol) REFERENCES VOLS(id_vol),
   FOREIGN KEY (id_aeroport_depart) REFERENCES AEROPORTS(id_aeroport),
   FOREIGN KEY (id_aeroport_arrivee) REFERENCES AEROPORTS(id_aeroport),
