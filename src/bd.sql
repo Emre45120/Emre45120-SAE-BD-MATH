@@ -43,3 +43,26 @@ CREATE TABLE ITINERAIRES (
   FOREIGN KEY (id_terminal_depart) REFERENCES TERMINAUX(id_terminal),
   FOREIGN KEY (id_terminal_arrivee) REFERENCES TERMINAUX(id_terminal)
 );
+
+CREATE TYPE Membre_Equipage AS OBJECT (
+  nom VARCHAR2(255),
+  fonction VARCHAR2(255)
+);
+
+CREATE TYPE Equipage_Tab AS TABLE OF Membre_Equipage;
+
+CREATE TYPE Indice_Qualite AS OBJECT (
+  type_indice VARCHAR2(255),
+  note NUMBER(3, 1),
+  poids NUMBER(3, 1)
+);
+
+ALTER TABLE VOLS
+ADD (
+  Equipage Equipage_Tab,
+  IndicesQualite Liste_Indices_Qualite
+)
+NESTED TABLE Equipage STORE AS Equipage_NT;
+
+ 
+
