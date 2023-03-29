@@ -51,12 +51,21 @@ CREATE TYPE Indice_Qualite AS OBJECT (
   poids NUMBER(3, 1)
 );
 
+CREATE TYPE Liste_Indices_Qualite AS TABLE OF Indice_Qualite;
+
 ALTER TABLE VOLS
 ADD (
   Equipage Equipage_Tab,
   IndicesQualite Liste_Indices_Qualite
 )
 NESTED TABLE Equipage STORE AS Equipage_NT;
+
+ALTER TABLE VOLS
+ADD (
+  IndicesQualite Liste_Indices_Qualite
+)
+NESTED TABLE IndicesQualite STORE AS IndicesQualite_NT;
+
 
  
 
